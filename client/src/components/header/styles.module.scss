@@ -1,0 +1,15 @@
+.header {
+    background-color: transparent !important;
+    padding: 10px;
+
+    &__wrap {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__nav {
+        display: inherit;
+        justify-content: flex-end;
+        gap: 20px;
+    }
+}

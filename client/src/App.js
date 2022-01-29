@@ -1,11 +1,16 @@
 import { useRoutes } from './hooks/useRoutes.hook';
+import { Header } from './components/header';
+import './index.scss';
 
 function App() {
   const routes = useRoutes(true);
   return (
-    <div>
-      {routes}
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        {routes}
+      </div>
+    </>
   );
 }
 
