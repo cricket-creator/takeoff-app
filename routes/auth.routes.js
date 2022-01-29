@@ -12,13 +12,13 @@ router.post(
   '/register',
   [
     check('email', wrongData).isEmail(),
-    check('password', wrongData).isLength({ min: 6, max: 12 }),
+    check('password', wrongData).isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res
+      return res
         .status(400)
         .json({
           errors: errors.array(),
@@ -28,20 +28,19 @@ router.post(
 
     try {
       const { email, password } = req.body;
-
       const candidate = await User.findOne({ email });
 
-      if (!candidate) {
+      if (candidate) {
         return res.status(400).json({ message: 'This user already exists!' });
       }
 
-      const hashedPassword = bcrypt.hash(password);
-      const user = new User({ email, password: hashedPassword });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new User({ email, password: hashedPassword, contactList: [] });
       await user.save();
 
       res.status(201).json({ message: 'New user successfully created!' });
     } catch (e) {
-      res.status(500).json({ message: 'Something went wrong!' });
+      res.status(500).json({ message: 'Register: Something went wrong!' });
     }
   });
 
@@ -55,7 +54,7 @@ router.post(
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res
+      return res
         .status(400)
         .json({
           errors: errors.array(),
@@ -65,14 +64,13 @@ router.post(
 
     try {
       const { email, password } = req.body;
-
       const user = await User.findOne({ email });
 
       if (!user) {
         return res.status(400).json({ message: 'This user doesn\'t exists!' });
       }
 
-      const isMatch = bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
         return res.status(400).json({ message: wrongData });
@@ -85,9 +83,8 @@ router.post(
       );
 
       res.json({ token, userId: user.id });
-
     } catch (e) {
-      res.status(500).json({ message: 'Something went wrong!' });
+      res.status(500).json({ message: 'Login: Something went wrong!' });
     }
   }
 );

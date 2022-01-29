@@ -3,11 +3,11 @@ import { Header } from './components/header';
 import './index.scss';
 
 function App() {
-  const routes = useRoutes(true);
+  const routes = useRoutes(false);
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container content">
         {routes}
       </div>
     </>

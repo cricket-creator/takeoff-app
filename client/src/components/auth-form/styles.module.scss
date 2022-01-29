@@ -1,0 +1,46 @@
+@import "src/colors";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    row-gap: 20px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+label {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 8px 3px;
+    outline: none;
+    margin-top: 5px;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #ffffff;
+    border-radius: inherit;
+    background-color: $backgroundColor;
+    transition: background-color 300ms;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    &:hover {
+        background-color: #80d3ff;
+    }
+
+    &:disabled {
+        background-color: $backgroundColor;
+        cursor: auto;
+    }
+}

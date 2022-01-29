@@ -1,5 +1,5 @@
 {
   "PORT": 5000,
   "jwtSecret": "Takeoff Private Cabinet",
-  "mongoUri": "mongodb+srv://takeoffapp:qwerty123@takeoffdb.bzh4u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://cricket:qwerty1234@takeoffcluster.lptc2.mongodb.net/TakeoffCluster?retryWrites=true&w=majority"
 }

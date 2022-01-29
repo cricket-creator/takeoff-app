@@ -13,7 +13,7 @@ body {
 
 a {
     text-decoration: none;
-    color: $defaultColor;
+    color: #000000;
 }
 
 img {
@@ -29,4 +29,10 @@ h1 {
     max-width: 1140px;
     width: 100%;
     margin: 0 auto;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }

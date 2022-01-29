@@ -11,14 +11,14 @@ export function Navigation() {
       <Link to="/auth">
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Log In / Register">
-            <Avatar />
+            <Avatar sx={{backgroundColor: '#000'}}/>
           </Tooltip>
         </Box>
       </Link>
       <Link to="/contacts">
         <Box sx={{ flexGrow: 0 }}>
         <Tooltip title="Contacts">
-          <Avatar>
+          <Avatar sx={{backgroundColor: '#000'}}>
             <Assignment />
           </Avatar>
         </Tooltip>
