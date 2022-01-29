@@ -1,0 +1,25 @@
+{
+  "name": "takeoff-app",
+  "version": "1.0.0",
+  "description": "private cabinet react node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cricket-creator/takeoff-app.git"
+  },
+  "keywords": [
+    "private",
+    "cabinet",
+    "react",
+    "node"
+  ],
+  "author": "Pavel Rakhaev <rakhaevpavel@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cricket-creator/takeoff-app/issues"
+  },
+  "homepage": "https://github.com/cricket-creator/takeoff-app#readme"
+}
