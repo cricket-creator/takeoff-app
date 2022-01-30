@@ -27,7 +27,6 @@ export function AuthPage() {
   const loginHandler = useCallback(async () => {
     try {
       const { token, userId, name } = await request('/api/auth/login', 'POST', { ...form });
-      console.log('LoginData: ', name);
       login(token, userId, name);
       navigate('/contacts');
     } catch (e) {}
@@ -35,16 +34,16 @@ export function AuthPage() {
 
   return (
     <>
-    {
-      isAuthenticated ?
-        <ProfilePage /> :
-        <AuthForm
-          values={form}
-          onChange={changeHandler}
-          onRegister={registerHandler}
-          onLogin={loginHandler}
-        />
-    }
+      {
+        isAuthenticated ?
+          <ProfilePage /> :
+          <AuthForm
+            values={form}
+            onChange={changeHandler}
+            onRegister={registerHandler}
+            onLogin={loginHandler}
+          />
+      }
     </>
   );
 }

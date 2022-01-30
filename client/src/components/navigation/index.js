@@ -9,7 +9,7 @@ export function Navigation() {
   const { isAuthenticated, logout } = useContext(AuthContext);
   return (
     <div className={styles.header__nav}>
-      <Link to="/auth">
+      <Link to="/profile">
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Profile">
             <Avatar sx={{ backgroundColor: '#000' }} />

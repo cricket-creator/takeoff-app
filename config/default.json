@@ -1,5 +1,6 @@
 {
   "PORT": 5000,
   "jwtSecret": "Takeoff Private Cabinet",
-  "mongoUri": "mongodb+srv://cricket:qwerty1234@takeoffcluster.lptc2.mongodb.net/TakeoffCluster?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://cricket:qwerty1234@takeoffcluster.lptc2.mongodb.net/TakeoffCluster?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:5000"
 }

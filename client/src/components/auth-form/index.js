@@ -28,6 +28,7 @@ export function AuthForm({ values: { email, password }, ...handlers }) {
       </label>
       <button
         type="button"
+        className={styles.btn}
         disabled={!email && !password}
         onClick={handlers.onLogin}
       >
@@ -35,6 +36,7 @@ export function AuthForm({ values: { email, password }, ...handlers }) {
       </button>
       <button
         type="button"
+        className={styles.btn}
         disabled={!email && !password}
         onClick={handlers.onRegister}
       >
