@@ -13,6 +13,7 @@ export const useRoutes = isAuth => {
         <Route path="/profile" element={<AuthPage />} />
         <Route path="/contacts" exact element={<ContactsPage />} />
         <Route path="/contacts/add" element={<ContactForm />} />
+        <Route path="/contacts/edit/:id" element={<ContactForm />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );

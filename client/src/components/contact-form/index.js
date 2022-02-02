@@ -1,5 +1,5 @@
-import React, { useCallback, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useHttp } from '../../hooks/useHttp.hook';
 import styles from '../auth-form/styles.module.scss';
@@ -8,22 +8,44 @@ export function ContactForm() {
   const { request } = useHttp();
   const { token } = useContext(AuthContext);
   const [form, setForm] = useState({
-    name: '', phone: ''
+    name: '', phone: '',
   });
+  const contactId = useParams().id;
 
   const changeHandler = evt => {
     setForm({ ...form, [evt.target.name]: evt.target.value });
   };
 
+  const getContactInfo = useCallback(async () => {
+    if (!contactId) return;
+
+    try {
+      const { contact } = await request(`/api/contacts/${contactId}`, 'GET', null, {
+        Authorization: `Bearer: ${token}`
+      });
+      setForm({ ...form, name: contact.name, phone: contact.phone });
+    } catch (e) {}
+  }, [contactId, request, token, form]);
+
   const addContactHandler = useCallback(async () => {
     try {
-      const data = await request('/api/contacts/add', 'POST', { ...form }, {
+      await request('/api/contacts/add', 'POST', { ...form }, {
         Authorization: `Bearer ${token}`
       });
-      console.log('AddContact: ', data);
-
     } catch (e) {}
   }, [form, token, request]);
+
+  const editContactHandler = useCallback(async () => {
+    try {
+      await request(`/api/contacts/edit/${contactId}`, 'POST', { ...form, id: contactId }, {
+        Authorization: `Bearer ${token}`
+      });
+    } catch (e) {}
+  }, [request, token, contactId, form]);
+
+  useEffect(() => {
+    getContactInfo();
+  }, []);
 
   return (
     <form className={styles.form}>
@@ -34,6 +56,7 @@ export function ContactForm() {
           placeholder="Entry name"
           type="text"
           name="name"
+          value={form.name}
           onChange={changeHandler}
         />
       </label>
@@ -44,16 +67,18 @@ export function ContactForm() {
           placeholder="Entry phone number"
           type="text"
           name="phone"
+          value={form.phone}
           onChange={changeHandler}
         />
       </label>
+      {contactId && <input type="hidden" name="id" value={contactId} />}
       <button
         type="submit"
         className={styles.btn}
         disabled={!form.phone}
-        onClick={addContactHandler}
+        onClick={contactId ? editContactHandler : addContactHandler}
       >
-        Add to contact
+        {contactId ? 'Edit contact' : 'Add to contact'}
       </button>
       <Link to="/contacts">
         <button

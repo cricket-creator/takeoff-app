@@ -15,7 +15,7 @@ function App() {
         token, userId, userName, login, logout, isAuthenticated
       }}>
         <Header />
-        <div className="container content">
+        <div className="container content__wrap">
           {routes}
         </div>
       </AuthContext.Provider>

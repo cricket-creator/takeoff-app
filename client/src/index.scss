@@ -32,8 +32,8 @@ h1, h2, h3 {
     margin: 0 auto;
 }
 
-.content {
+.content__wrap {
+    margin-top: 50px;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
 }
