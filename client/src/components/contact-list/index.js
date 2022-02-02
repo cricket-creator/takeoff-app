@@ -21,7 +21,7 @@ export function ContactList({ list, onReload }) {
       console.log('DeleteContact: ', data);
     } catch (e) {}
     onReload();
-  }, [request, token]);
+  }, [request, token, onReload]);
 
   return (
     <section className={styles.contacts}>
