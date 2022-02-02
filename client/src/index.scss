@@ -1,0 +1,39 @@
+@import './colors';
+
+*, :before, :after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, sans-serif;
+    background-color: $backgroundColor;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+    border-radius: inherit;
+}
+
+img {
+    display: block;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.content__wrap {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
