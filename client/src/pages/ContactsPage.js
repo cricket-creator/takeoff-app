@@ -5,16 +5,16 @@ import { useHttp } from '../hooks/useHttp.hook';
 import { AuthContext } from '../context/AuthContext';
 
 export function ContactsPage() {
-  const [list, setList] = useState(null);
+  const [list, setList] = useState([]);
   const { token } = useContext(AuthContext);
   const { request, loading } = useHttp();
 
   const contactsHandler = useCallback(async () => {
     try {
-      const data = await request('/api/contacts', 'GET', null, {
+      const { contacts } = await request('/api/contacts', 'GET', null, {
         Authorization: `Bearer: ${token}`
       });
-      setList(data.contacts);
+      setList(contacts);
     } catch (e) {}
   }, [request, token]);
 
@@ -25,7 +25,7 @@ export function ContactsPage() {
   return (
     <>
       {
-        !loading ? <ContactList list={list} onReload={contactsHandler}/> : <CircularProgress />
+        !loading ? <ContactList list={list} onReload={contactsHandler} /> : <CircularProgress />
       }
     </>
   );

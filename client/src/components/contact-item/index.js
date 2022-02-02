@@ -16,7 +16,7 @@ export function ContactItem({ _id, name, phone, onDelete }) {
         <button
           type="button"
           className={`${styles.btns__delete} ${styles.btns__btn}`}
-          onClick={() => { onDelete(_id); }}
+          onClick={() => onDelete(_id)}
         >
           <Delete />
         </button>

@@ -1,19 +1,27 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useHttp } from '../../hooks/useHttp.hook';
+import { useMessage } from '../../hooks/useMessage.hook';
 import styles from '../auth-form/styles.module.scss';
 
 export function ContactForm() {
-  const { request } = useHttp();
+  const { request, error, clearError } = useHttp();
   const { token } = useContext(AuthContext);
   const [form, setForm] = useState({
     name: '', phone: '',
   });
+  const navigate = useNavigate();
+  const message = useMessage();
   const contactId = useParams().id;
 
-  const changeHandler = evt => {
-    setForm({ ...form, [evt.target.name]: evt.target.value });
+  useEffect(() => {
+    message(error);
+    clearError();
+  }, [message, error, clearError]);
+
+  const changeHandler = event => {
+    setForm({ ...form, [event.target.name]: event.target.value });
   };
 
   const getContactInfo = useCallback(async () => {
@@ -27,21 +35,29 @@ export function ContactForm() {
     } catch (e) {}
   }, [contactId, request, token, form]);
 
-  const addContactHandler = useCallback(async () => {
-    try {
-      await request('/api/contacts/add', 'POST', { ...form }, {
-        Authorization: `Bearer ${token}`
-      });
-    } catch (e) {}
-  }, [form, token, request]);
+  const addContactHandler = useCallback(async (event) => {
+    event.preventDefault();
 
-  const editContactHandler = useCallback(async () => {
     try {
-      await request(`/api/contacts/edit/${contactId}`, 'POST', { ...form, id: contactId }, {
+      const data = await request('/api/contacts/add', 'POST', { ...form }, {
         Authorization: `Bearer ${token}`
       });
+      message(data.message);
+      navigate('/contacts');
     } catch (e) {}
-  }, [request, token, contactId, form]);
+  }, [form, token, request, navigate, message]);
+
+  const editContactHandler = useCallback(async (event) => {
+    event.preventDefault();
+
+    try {
+      const data = await request(`/api/contacts/edit/${contactId}`, 'POST', { ...form, id: contactId }, {
+        Authorization: `Bearer ${token}`
+      });
+      message(data.message);
+      navigate('/contacts');
+    } catch (e) {}
+  }, [request, token, contactId, form, navigate, message]);
 
   useEffect(() => {
     getContactInfo();

@@ -11,8 +11,14 @@ const wrongData = 'Wrong email or password!';
 router.post(
   '/register',
   [
-    check('email', wrongData).isEmail(),
-    check('password', wrongData).isLength({ min: 6 }),
+    check(
+      'email',
+      'Invalid email')
+      .isEmail(),
+    check(
+      'password',
+      'Password length must be equal or more then 6 characters!')
+      .isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -22,7 +28,7 @@ router.post(
         .status(400)
         .json({
           errors: errors.array(),
-          message: wrongData
+          message: errors.array().map(err => err.msg).join('\n'),
         });
     }
 
@@ -58,7 +64,7 @@ router.post(
         .status(400)
         .json({
           errors: errors.array(),
-          message: wrongData
+          message: wrongData,
         });
     }
 

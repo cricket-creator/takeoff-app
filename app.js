@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
-const path = require('path');
 
 const app = express();
 app.use(express.json({ extended: true }));
@@ -15,14 +14,6 @@ app.use('/', require('./routes/home.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 // contacts
 app.use('/api/contacts', require('./routes/contacts.routes'));
-
-if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, 'client', 'build')));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
 
 const PORT = config.get('PORT') || 5000;
 
