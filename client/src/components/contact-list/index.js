@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Box, Tooltip } from '@mui/material';
+import { Avatar, Box, Tooltip, CircularProgress } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
 import { AuthContext } from '../../context/AuthContext';
 import { ContactItem } from '../contact-item';
@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 import { useHttp } from '../../hooks/useHttp.hook';
 import { useAuth } from '../../hooks/useAuth.hook';
 
-export function ContactList({ list }) {
+export function ContactList({ list, onReload }) {
   const { request, loading } = useHttp();
   const { token } = useAuth();
   const { userName } = useContext(AuthContext);
@@ -20,6 +20,7 @@ export function ContactList({ list }) {
       });
       console.log('DeleteContact: ', data);
     } catch (e) {}
+    onReload();
   }, [request, token]);
 
   return (
@@ -45,6 +46,12 @@ export function ContactList({ list }) {
               onDelete={deleteHandler}
             />)}
         </div>
+      }
+      {
+        loading && <CircularProgress color="info" />
+      }
+      {
+        (!list || list.length < 1) && <h3>List is empty!</h3>
       }
     </section>
   );

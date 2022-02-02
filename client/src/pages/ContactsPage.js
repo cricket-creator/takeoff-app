@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import { ContactList } from '../components/contact-list';
 import { useHttp } from '../hooks/useHttp.hook';
 import { AuthContext } from '../context/AuthContext';
@@ -6,7 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 export function ContactsPage() {
   const [list, setList] = useState(null);
   const { token } = useContext(AuthContext);
-  const { request } = useHttp();
+  const { request, loading } = useHttp();
 
   const contactsHandler = useCallback(async () => {
     try {
@@ -22,6 +23,10 @@ export function ContactsPage() {
   }, [contactsHandler]);
 
   return (
-    <ContactList list={list} />
+    <>
+      {
+        !loading ? <ContactList list={list} onReload={contactsHandler}/> : <CircularProgress />
+      }
+    </>
   );
 }

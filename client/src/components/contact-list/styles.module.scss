@@ -11,5 +11,6 @@
         grid-template-columns: repeat(auto-fit, minmax(200px, auto));
         padding: 20px 10px;
         grid-gap: 30px;
+        justify-items: center;
     }
 }
