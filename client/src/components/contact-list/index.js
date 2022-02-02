@@ -21,8 +21,13 @@ export function ContactList({ list }) {
           </Tooltip>
         </Box>
       </Link>
-      <div className={styles.contacts__list}>
-        {list?.map(({ id, name, phone }) => <ContactItem key={id} name={name} phone={phone} />)}
+      <div className={styles.contacts__grid}>
+        {list?.map(({ _id, name, phone }) => <ContactItem
+          key={_id}
+          _id={_id}
+          name={name}
+          phone={phone}
+        />)}
       </div>
     </section>
   );

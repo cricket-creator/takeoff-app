@@ -3,7 +3,12 @@
     flex-direction: column;
     align-items: center;
 
-    &__list {
-
+    &__grid {
+        display: grid;
+        justify-items: center;
+        padding: 20px 10px;
+        grid-auto-flow: column;
+        grid-gap: 50px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 250px));
     }
 }
